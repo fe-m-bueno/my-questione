@@ -10,25 +10,16 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const prompt = `Você é um gerador de questões para professores. A partir dos parâmetros fornecidos ("matéria": ${materia}, "tipo de ensino": ${ensino}, "turma": ${turma}, "dificuldade": ${dificuldade} e "tema": ${tema}), não fuja do tema, pense bem para não fugir do escopo, gere questões e um texto de apoio seguindo rigorosamente este formato:
+    const prompt = `Gere um texto de apoio sobre "${tema}" da matéria "${materia}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}". O texto deve ser informativo e adequado ao nível de ensino especificado.
 
-        -Retorne APENAS um JSON válido, sem explicações, sem comentários e sem formatação Markdown.        
-        -NÃO inclua trechos de código como \`\`\`json ou \`\`\`.
-        -Retorne APENAS o JSON puro e válido.
-    
-    **Texto de Apoio:**  
-    [Gerar um texto explicativo completo, entre 4 e 5 parágrafos sobre o tema solicitado, adequado ao tipo de ensino e nível de dificuldade, divida os textos em parágrafos com espaços.]
-    ---
-    ### Regras:
-    - O nível de dificuldade deve influenciar a complexidade do texto de apoio.
-    - O texto de apoio deve fornecer contexto e informações úteis sobre o tema.
-    - Não inclua nenhuma informação extra além do formato especificado.
-    - Deve retornar um JSON no schema a seguir:
-    Questions = {
-    "supporting_text": {
-      "type": "string",
-      "minLength": 600
-    }
+- O texto deve ter entre 4 e 5 parágrafos, estruturado de forma clara e coerente.
+- O nível de dificuldade deve influenciar a complexidade do conteúdo.
+- Retorne apenas um JSON válido no seguinte formato:
+{
+  "supporting_text": "Texto explicativo aqui"
+}
+- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json.
+
     `;
 
     const result = await model.generateContent(prompt);

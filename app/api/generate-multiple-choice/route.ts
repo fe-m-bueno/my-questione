@@ -10,60 +10,42 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const prompt = `Você é um gerador de questões para professores. A partir dos parâmetros fornecidos ("matéria": ${materia}, "tipo de ensino": ${ensino}, "turma": ${turma}, "dificuldade": ${dificuldade} e "tema": ${tema}), não fuja do tema, pense bem para não fugir do escopo, gere questões e um texto de apoio seguindo rigorosamente este formato:
+    const prompt = `Gere 5 perguntas de múltipla escolha sobre "${tema}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}".
 
-        -Retorne APENAS um JSON válido, sem explicações, sem comentários e sem formatação Markdown.        
-        -NÃO inclua trechos de código como \`\`\`json ou \`\`\`.
-        -Retorne APENAS o JSON puro e válido.
+- Cada questão deve ter 5 alternativas (a, b, c, d, e).
+- Indique a resposta correta e forneça uma justificativa clara.
+- Retorne apenas um JSON válido no seguinte formato:
+{
+  "questions_multiple_choice": [
+    {
+      "question": "Pergunta 1",
+      "options": [
+        "a) Opção A",
+        "b) Opção B",
+        "c) Opção C",
+        "d) Opção D",
+        "e) Opção E"
+      ],
+      "correct_answer": "c) Explicação da resposta correta",
+      "justification": "Justificativa da resposta correta"
+    },
+    {
+      "question": "Pergunta 2",
+      "options": [
+        "a) Opção A",
+        "b) Opção B",
+        "c) Opção C",
+        "d) Opção D",
+        "e) Opção E"
+      ],
+      "correct_answer": "b) Explicação da resposta correta",
+      "justification": "Justificativa da resposta correta"
+    },
+    **Gere 5 nesse modelo**
+  ]
+}
+- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json.
 
-    Questões de Assinalar:
-    1. [Pergunta]
-    a) [Opção A]  
-       b) [Opção B]  
-       c) [Opção C]  
-       d) [Opção D]  
-    e) [Opção E]  
-       **Resposta correta:** [Letra da opção correta e justificativa da resposta]
-    2. [Pergunta]  
-       a) [Opção A]  
-       b) [Opção B]  
-       c) [Opção C]
-       d) [Opção D]  
-       e) [Opção E]  
-        **Resposta correta:** [Letra da opção correta e justificativa da resposta]
-    (... Gerar um total de 5 questões de assinalar)
-    
-    ### Regras:
-    - As questões devem ser coerentes com os parâmetros fornecidos.
-    - O nível de dificuldade deve influenciar a complexidade das perguntas e respostas.    
-    - Não inclua nenhuma informação extra além do formato especificado.
-    - Deve retornar um JSON no schema a seguir:
-    Questions = {
-        "questions_multiple_choice": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "question": { "type": "string" },
-              "options": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "pattern": "^[a-e]\\)\\s.*$"
-                },
-                "minItems": 5,
-                "maxItems": 5
-              },
-              "correct_answer": { "type": "string" },
-              "justification": { "type": "string" }
-            },
-            "required": ["question", "options", "correct_answer", "justification"]
-          },
-          "minItems": 5,
-          "maxItems": 5
-        }
-      }  
-   
     `;
 
     const result = await model.generateContent(prompt);

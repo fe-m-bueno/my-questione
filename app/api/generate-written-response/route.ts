@@ -10,45 +10,37 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const prompt = `Você é um gerador de questões para professores. A partir dos parâmetros fornecidos ("matéria": ${materia}, "tipo de ensino": ${ensino}, "turma": ${turma}, "dificuldade": ${dificuldade} e "tema": ${tema}), não fuja do tema, pense bem para não fugir do escopo, gere questões e um texto de apoio seguindo rigorosamente este formato:
+    const prompt = `Gere 5 perguntas dissertativas sobre "${tema}" da matéria "${materia}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}".
 
-        -Retorne APENAS um JSON válido, sem explicações, sem comentários e sem formatação Markdown.        
-        -NÃO inclua trechos de código como \`\`\`json ou \`\`\`.
-        -Retorne APENAS o JSON puro e válido.
-    
-    **Questões de Resposta Escrita:**
-    1. [Pergunta]
-     **Resposta correta** 
-    2. [Pergunta]
-    **Resposta correta** 
-    3. [Pergunta]
-    **Resposta correta** 
-    4. [Pergunta]
-    **Resposta correta** 
-    5. [Pergunta]
-    **Resposta correta** 
-    
-    ### Regras:
-    - As questões devem ser coerentes com os parâmetros fornecidos.
-    - O nível de dificuldade deve influenciar a complexidade das perguntas e respostas.
-    - Não inclua nenhuma informação extra além do formato especificado.
-    - Deve retornar um JSON no schema a seguir:
-    Questions =  {
-      "questions_written_response": {
-        "type": "array",
-        "items": {
-          "type": "object",
-        "properties": {
-          "question": { "type": "string" },
-          "correct_answer": { "type": "string" }
-        },
-        "required": ["question", "correct_answer"]
-      },
-      "minItems": 5,
-      "maxItems": 5
-      }
+- As perguntas devem ser coerentes com os parâmetros fornecidos.
+- O nível de dificuldade deve influenciar a complexidade das perguntas e respostas.
+- Retorne apenas um JSON válido no seguinte formato:
+{
+  "questions_written_response": [
+    {
+      "question": "Pergunta 1",
+      "correct_answer": "Resposta sugerida"
+    },
+    {
+      "question": "Pergunta 2",
+      "correct_answer": "Resposta sugerida"
+    },
+    {
+      "question": "Pergunta 3",
+      "correct_answer": "Resposta sugerida"
+    },
+    {
+      "question": "Pergunta 4",
+      "correct_answer": "Resposta sugerida"
+    },
+    {
+      "question": "Pergunta 5",
+      "correct_answer": "Resposta sugerida"
     }
-    `;
+  ]
+}
+- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json.
+`;
 
     const result = await model.generateContent(prompt);
     let textResponse = result.response.text();
