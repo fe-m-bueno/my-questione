@@ -9,13 +9,7 @@ const TURMAS: Record<string, string[]> = {
   'Fundamental II': ['6º Ano', '7º Ano', '8º Ano', '9º Ano'],
   Médio: ['1º Ano', '2º Ano', '3º Ano'],
 };
-const DIFICULDADES = [
-  'Muito Fácil',
-  'Fácil',
-  'Média',
-  'Difícil',
-  'Muito Difícil',
-];
+const DIFICULDADES = ['Muito Fácil', 'Fácil', 'Média'];
 
 export default function InputForm({
   onSubmit,
