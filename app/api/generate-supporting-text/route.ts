@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 {
   "supporting_text": "Texto explicativo aqui"
 }
-- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json. ou \`\`\` ou qualquer tipo de character não parseável.
+- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json. ou \`\`\` ou qualquer tipo de character não parseável, não quebre linhas, apenas adicione /n se necessário.
 
     `;
 
