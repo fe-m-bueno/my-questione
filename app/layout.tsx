@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: 'Questione AI',
     images: [
       {
-        url: 'https://questione.vercel.app/questione-preview.webp',
+        url: 'https://questione.vercel.app/questione-preview.png',
         width: 1200,
         height: 630,
         alt: 'Banner do Gerador de Questões',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Gerador de Questões para Professores',
     description:
       'Crie questões personalizadas para Ensino Fundamental, Médio e Superior com inteligência artificial.',
-    images: ['https://questione.vercel.app/questione-preview.webp'],
+    images: ['https://questione.vercel.app/questione-preview.png'],
   },
   robots: {
     index: true,
