@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
     const prompt = `Gere 5 perguntas de múltipla escolha sobre "${tema}" da matéria "${materia}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}".
+     - Se a dificuldade for "difícil" ou "muito difícil", faça perguntas analíticas, mas evite textos longos.
 
 - Cada questão deve ter 5 alternativas (a, b, c, d, e).
 - Indique a resposta correta e forneça uma justificativa clara.

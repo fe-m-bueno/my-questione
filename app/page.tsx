@@ -32,6 +32,8 @@ export default function Home() {
       .replace(/\u0000/g, '')
       .replace(/\r/g, '')
       .replace(/\t/g, '')
+      .replace(/\n\n/g, ' ')
+      .replace(/\n/g, '')
       .trim();
   };
 
@@ -100,6 +102,8 @@ export default function Home() {
       setLoading(false);
     }
   };
+  let selectedParams =
+    history.find((h) => h.json === questions)?.params || currentParams;
 
   const updateDifficulty = (newDifficulty: string) => {
     if (!history.length) {
@@ -108,8 +112,6 @@ export default function Home() {
       );
       return;
     }
-    const selectedParams =
-      history.find((h) => h.json === questions)?.params || currentParams;
 
     fetchQuestions({ ...selectedParams, dificuldade: newDifficulty });
   };
@@ -117,6 +119,9 @@ export default function Home() {
     setQuestions(null);
     setError(null);
     setCurrentParams(null);
+  };
+  const handleRegenerate = () => {
+    fetchQuestions(selectedParams);
   };
 
   return (
@@ -153,10 +158,7 @@ export default function Home() {
         )}
 
         {!loading && !error && questions && (
-          <QuestionsGrid
-            data={questions}
-            onRegenerate={() => fetchQuestions(history[history.length - 1])}
-          />
+          <QuestionsGrid data={questions} onRegenerate={handleRegenerate} />
         )}
       </div>
     </div>

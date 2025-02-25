@@ -42,8 +42,11 @@ export async function POST(request: Request) {
 - Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json.
 `;
 
-    const result = await model.generateContent(prompt);
-    let textResponse = result.response.text();
+    const result = await model.generateContentStream(prompt);
+    let textResponse = '';
+    for await (const chunk of result.stream) {
+      textResponse += chunk.text();
+    }
 
     console.log('📢 Resposta bruta do Gemini:', textResponse);
 
