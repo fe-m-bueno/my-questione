@@ -30,7 +30,7 @@ export default function InputForm({
   }, [ensino]);
 
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl mx-auto p-4 ">
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl mx-auto p-4 sm:mt-10">
       <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto p-4 items-center justify-center">
         <AutosizeTextarea
           label="Tema"
@@ -77,7 +77,7 @@ export default function InputForm({
             e.key === 'Enter' &&
             onSubmit({ tema, ensino, turma, dificuldade, materia })
           }
-          className="bg-dark-foreground dark:bg-light-foreground text-xl text-white dark:text-black py-3 px-1 rounded-2xl hover:bg-dark-foreground/90 dark:hover:bg-light-foreground/90 transition ~w-36/48"
+          className="bg-dark-foreground dark:bg-light-foreground text-white dark:text-black py-3 px-1 rounded-2xl hover:bg-dark-foreground/90 dark:hover:bg-light-foreground/90 transition ~w-36/48 ~text-base/lg"
         >
           Gerar Perguntas
         </button>

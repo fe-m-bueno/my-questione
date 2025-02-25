@@ -15,7 +15,13 @@ interface QuestionsData {
     question: string;
     correct_answer: string;
   }[];
-  supporting_text: string;
+  supporting_text: {
+    paragraph1: string;
+    paragraph2: string;
+    paragraph3: string;
+    paragraph4: string;
+    paragraph5: string;
+  };
 }
 
 export default function QuestionsGrid({
@@ -50,7 +56,7 @@ export default function QuestionsGrid({
         .map((q, index) => `${index + 1}. ${q.question}`)
         .join('\n\n')
     ),
-    supportingText: cleanText(data.supporting_text),
+    supportingText: cleanText(Object.values(data.supporting_text).join('\n\n')),
   };
 
   const copyFullText = {
@@ -76,7 +82,7 @@ export default function QuestionsGrid({
         )
         .join('\n\n')
     ),
-    supportingText: cleanText(data.supporting_text),
+    supportingText: cleanText(Object.values(data.supporting_text).join('\n\n')),
   };
   const copyAllText = `${copyQuestionsOnly.multipleChoice}\n\n${copyQuestionsOnly.writtenResponse}\n\n${copyFullText.supportingText}`;
   const copyAllTextWithAnswers = `${copyFullText.multipleChoice}\n\n${copyFullText.writtenResponse}\n\n${copyFullText.supportingText}`;
@@ -147,7 +153,7 @@ export default function QuestionsGrid({
         <div className="bg-light-foreground dark:bg-dark-foreground shadow-md rounded-lg p-6 border border-light-border dark:border-dark-border text-pretty">
           <h2 className="text-lg font-bold mb-3">📖 Texto de Apoio</h2>
           <p className="text-sm/7 whitespace-pre-wrap font-semibold">
-            {data.supporting_text}
+            {Object.values(data.supporting_text).join('\n\n')}
           </p>
 
           <div className="flex gap-2 mt-4">

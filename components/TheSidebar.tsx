@@ -52,7 +52,7 @@ export default function Sidebar({
                     setIsOpen(false);
                   }}
                 >
-                  <span className="flex-1 truncate">{item.params.tema}</span>
+                  <span className="flex-1 truncate">{item?.params?.tema}</span>
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
