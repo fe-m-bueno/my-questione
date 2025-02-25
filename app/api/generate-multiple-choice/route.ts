@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
 
-    const prompt = `Gere 5 perguntas de múltipla escolha sobre "${tema}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}".
+    const prompt = `Gere 5 perguntas de múltipla escolha sobre "${tema}" da matéria "${materia}" para alunos do ensino ${ensino}, turma ${turma}, com nível de dificuldade "${dificuldade}".
 
 - Cada questão deve ter 5 alternativas (a, b, c, d, e).
 - Indique a resposta correta e forneça uma justificativa clara.

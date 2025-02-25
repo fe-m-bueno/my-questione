@@ -14,11 +14,11 @@ export async function POST(request: Request) {
 
 - O texto deve ter entre 4 e 5 parágrafos, estruturado de forma clara e coerente.
 - O nível de dificuldade deve influenciar a complexidade do conteúdo.
-- Retorne apenas um JSON válido no seguinte formato:
+- Retorne apenas um JSON válido no seguinte formato, sem quebra de linhas dentro das strings:
 {
   "supporting_text": "Texto explicativo aqui"
 }
-- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json.
+- Não inclua explicações, formatação Markdown ou trechos de código como \`\`\`json. ou \`\`\` ou qualquer tipo de character não parseável.
 
     `;
 

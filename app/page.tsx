@@ -14,6 +14,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [history, setHistory] = useLocalStorage<any[]>('questionHistory', []);
+  const [lastParams, setLastParams] = useState(null);
 
   const [currentParams, setCurrentParams] = useState<any>({});
   const [hasMounted, setHasMounted] = useState(false);
@@ -26,11 +27,11 @@ export default function Home() {
   }
   const cleanJSON = (text: string) => {
     return text
-      .replace(/^```json\s*/, '') // Remove ```json no início
-      .replace(/```$/, '') // Remove ``` no final
-      .replace(/\u0000/g, '') // Remove caracteres invisíveis
-      .replace(/\r/g, '') // Remove carriage return
-      .replace(/\t/g, '') // Remove tabulações
+      .replace(/^```json\s*/, '')
+      .replace(/```$/, '')
+      .replace(/\u0000/g, '')
+      .replace(/\r/g, '')
+      .replace(/\t/g, '')
       .trim();
   };
 
@@ -41,6 +42,7 @@ export default function Home() {
     setCurrentParams(data);
 
     try {
+      setLastParams(data);
       const [multipleChoiceResponse, writtenResponse, supportingTextResponse] =
         await Promise.all([
           fetch('/api/generate-multiple-choice', {
@@ -142,7 +144,7 @@ export default function Home() {
         {error && (
           <ErrorFallback
             message={error}
-            onRetry={() => fetchQuestions(history[0]?.params || {})}
+            onRetry={() => fetchQuestions(lastParams)}
           />
         )}
 
